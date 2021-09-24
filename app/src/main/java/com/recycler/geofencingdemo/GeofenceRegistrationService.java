@@ -4,14 +4,15 @@ import android.app.IntentService;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.support.annotation.Nullable;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.TaskStackBuilder;
 import android.text.TextUtils;
 import android.util.Log;
+
+import androidx.annotation.Nullable;
+import androidx.core.app.NotificationCompat;
 
 import com.google.android.gms.location.Geofence;
 import com.google.android.gms.location.GeofenceStatusCodes;
@@ -20,9 +21,6 @@ import com.google.android.gms.location.GeofencingEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Manu on 11/24/2017.
- */
 
 public class GeofenceRegistrationService extends IntentService {
 
@@ -41,10 +39,12 @@ public class GeofenceRegistrationService extends IntentService {
             int transaction = geofencingEvent.getGeofenceTransition();
             List<Geofence> geofences = geofencingEvent.getTriggeringGeofences();
             Geofence geofence = geofences.get(0);
-            if (transaction == Geofence.GEOFENCE_TRANSITION_ENTER && geofence.getRequestId().equals(Constants.GEOFENCE_ID)) {
-                Log.d(TAG, "You are inside Tacme");
+            if (transaction == Geofence.GEOFENCE_TRANSITION_ENTER && geofence.getRequestId().equals("BLR")) {
+                Log.d(TAG, "You are inside the zone");
+
             } else {
-                Log.d(TAG, "You are outside Tacme");
+                Log.d(TAG, "You are outside the zone");
+                sendNotification("User is out of the Shield");
             }
             String geofenceTransitionDetails = getGeofenceTrasitionDetails(transaction, geofences );
 
@@ -63,9 +63,9 @@ public class GeofenceRegistrationService extends IntentService {
 
         String status = null;
         if ( geoFenceTransition == Geofence.GEOFENCE_TRANSITION_ENTER )
-            status = "Entering ";
+            status = "User is inside the shield ";
         else if ( geoFenceTransition == Geofence.GEOFENCE_TRANSITION_EXIT )
-            status = "Exiting ";
+            status = "User is exiting the shield ";
         return status + TextUtils.join( ", ", triggeringGeofencesList);
     }
 

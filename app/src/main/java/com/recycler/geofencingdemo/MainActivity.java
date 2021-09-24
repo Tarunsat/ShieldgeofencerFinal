@@ -7,13 +7,16 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
@@ -46,14 +49,14 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private MarkerOptions markerOptions;
     private Marker currentLocationMarker;
     private PendingIntent pendingIntent;
+    Global sharedData = Global.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
 
@@ -68,7 +71,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
 
 
+
     }
+
+
 
     private void startLocationMonitor() {
         Log.d(TAG, "start location monitor");
@@ -129,14 +135,16 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     @NonNull
     private Geofence getGeofence() {
-        LatLng latLng = Constants.AREA_LANDMARKS.get(Constants.GEOFENCE_ID);
+
         return new Geofence.Builder()
-                .setRequestId(Constants.GEOFENCE_ID)
+                .setRequestId("BLR")
                 .setExpirationDuration(Geofence.NEVER_EXPIRE)
-                .setCircularRegion(latLng.latitude, latLng.longitude, Constants.GEOFENCE_RADIUS_IN_METERS)
+                .setCircularRegion(sharedData.getValueLat(), sharedData.getValueLong(), (float) sharedData.getValueRad())
                 .setNotificationResponsiveness(1000)
                 .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER | Geofence.GEOFENCE_TRANSITION_EXIT)
                 .build();
+
+
     }
 
     private PendingIntent getGeofencePendingIntent() {
@@ -161,12 +169,16 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     }
                 });
         isMonitoring = false;
+
         invalidateOptionsMenu();
+        Toast.makeText(getApplicationContext(),"Shield disabled",Toast.LENGTH_SHORT).show();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        Toast.makeText(getApplicationContext(),String.valueOf(sharedData.getValueLat()),Toast.LENGTH_SHORT).show();
+        startGeofencing();
         int response = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(MainActivity.this);
         if (response != ConnectionResult.SUCCESS) {
             Log.d(TAG, "Google Play Service Not Available");
@@ -227,16 +239,16 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
 
         this.googleMap = googleMap;
-        LatLng latLng = Constants.AREA_LANDMARKS.get(Constants.GEOFENCE_ID);
-        googleMap.addMarker(new MarkerOptions().position(latLng).title("TACME"));
+        LatLng latLng = new LatLng(sharedData.getValueLat(),sharedData.getValueLong());
+        googleMap.addMarker(new MarkerOptions().position(latLng).title("Chosen Location"));
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 17f));
 
         googleMap.setMyLocationEnabled(true);
 
         Circle circle = googleMap.addCircle(new CircleOptions()
                 .center(new LatLng(latLng.latitude, latLng.longitude))
-                .radius(Constants.GEOFENCE_RADIUS_IN_METERS)
-                .strokeColor(Color.RED)
+                .radius(sharedData.getValueRad())
+                .strokeColor(Color.BLUE)
                 .strokeWidth(4f));
 
     }
@@ -259,4 +271,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         isMonitoring = false;
         Log.e(TAG, "Connection Failed:" + connectionResult.getErrorMessage());
     }
+
+    public void Add(View view) {
+        Intent i = new Intent(this, addFence.class);
+        startActivity(i);
+    }
+    public void Remove(View view) {
+        stopGeoFencing();
+    }
+
 }
