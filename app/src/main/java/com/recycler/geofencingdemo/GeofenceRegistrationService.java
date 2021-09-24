@@ -66,6 +66,8 @@ public class GeofenceRegistrationService extends IntentService {
             status = "User is inside the shield ";
         else if ( geoFenceTransition == Geofence.GEOFENCE_TRANSITION_EXIT )
             status = "User is exiting the shield ";
+        else
+            status = "User is outside the shield";
         return status + TextUtils.join( ", ", triggeringGeofencesList);
     }
 
