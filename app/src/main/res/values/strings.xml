@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Shield</string>
+    <string name="app_name">ShieldGeofencer</string>
 
     <string name="google_map_key">AIzaSyA-JrqOvvQ7eCTbEq_Q15yS5uJCiY67-w4</string>
 </resources>
