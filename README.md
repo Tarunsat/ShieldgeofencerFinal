@@ -6,8 +6,7 @@ This project aims to solve the problem with people living with parkinsons or alz
 It aims to give loved ones or guardians of th user quick and easy access to their location at all times.
 The app at its core generates a geofence(SHield) of radius of your choice with the location of your choice.
 If the user walks out of the geofence, the caretakers shall receive a notification.
-### Screenshot
-![Image text](https://www.united-internet.de/fileadmin/user_upload/Brands/Downloads/Logo_IONOS_by.jpg)
+
 ## Technologies
 ***
 A list of technologies used within the project:
@@ -29,9 +28,3 @@ The use of maps SDK is to display a simple map on screen with current location a
 a geofence of user defined location and size.
 It will monitor the position of the user with respect to the geofence
 
-3. **Third question in bold**
-Answer to the third question with *italic words*.
-4. **Fourth question in bold**
-| Headline 1 in the tablehead | Headline 2 in the tablehead | Headline 3 in the tablehead |
-|:--------------|:-------------:|--------------:|
-| text-align left | text-align center | text-align right |
