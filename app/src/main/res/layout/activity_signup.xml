@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     xmlns:tools="http://schemas.android.com/tools"
 
     tools:context=".LoginActivity">
@@ -17,7 +18,7 @@
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Sign in"
+            android:text="Sign up"
             android:id="@+id/textview"
             android:textStyle="bold"
             android:textSize="20dp"
@@ -35,7 +36,7 @@
             android:id="@+id/email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Name"/>
+            android:hint="Email"/>
         <EditText
             android:id="@+id/password"
             android:layout_width="match_parent"
@@ -43,7 +44,9 @@
             android:hint="Password"/>
 
 
+
         <Button
+            android:onClick="SignUp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/ButtonChooseImage"
@@ -55,6 +58,7 @@
 
 
         <Button
+            android:onClick="ResetPassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -64,6 +68,7 @@
             android:layout_marginTop="20dp"
             android:text="Forgot your password?"/>
         <Button
+            android:onClick="Signinn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -71,7 +76,7 @@
             android:id="@+id/sign_in_button"
 
             android:layout_marginTop="20dp"
-            android:text="Already regigered? Login here."/>
+            android:text="Already registered? Login here."/>
 
 
 
@@ -84,4 +89,4 @@
         android:layout_gravity="center|bottom"
         android:layout_marginBottom="20dp"
         android:visibility="gone" />
-</ScrollView>
+</LinearLayout>
