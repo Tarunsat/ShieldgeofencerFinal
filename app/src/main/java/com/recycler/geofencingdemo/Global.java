@@ -17,6 +17,7 @@ public class Global {
     private double notification_index3 = 100;
     private double Currlats = 13.0524309;
     private double Currlongs = 77.6129534;
+    private String Email = "";
 
 
 
@@ -64,6 +65,15 @@ public class Global {
 
     public void setValueCurrLong(double notification_index) {
         this.Currlongs = notification_index;
+    }
+
+    public String getValueEmail() {
+        return Email;
+    }
+
+
+    public void setValueEmail(String notification_index) {
+        this.Email = notification_index;
     }
 
 }

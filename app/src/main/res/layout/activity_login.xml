@@ -2,10 +2,33 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:background="#77766E"
     xmlns:tools="http://schemas.android.com/tools"
 
     tools:context=".LoginActivity">
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Login"
+        android:textColor="#ffffff"
+        android:textStyle="bold"
+        android:textSize="50dp"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20sp"/>
+
+    <androidx.cardview.widget.CardView
+        app:cardCornerRadius="40dp"
+        android:elevation="5dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:background="#ffffff"
+        app:cardElevation="@dimen/cardview_default_elevation"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent">
     <LinearLayout
 
         xmlns:tools="http://schemas.android.com/tools"
@@ -15,15 +38,7 @@
         android:layout_margin="20dp">
 
 
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="Login"
-            android:id="@+id/textview"
-            android:textStyle="bold"
-            android:textSize="20dp"
-            android:gravity="center"
-            android:layout_marginTop="20dp"/>
+
 
 
 
@@ -46,7 +61,8 @@
             android:id="@+id/ButtonChooseImage"
             android:layout_gravity="center"
             android:layout_below="@+id/btn_login"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="50dp"
+
             android:text="Authenticate"/>
 
 
@@ -59,7 +75,7 @@
             style="@style/Widget.AppCompat.ButtonBar"
             android:id="@+id/btn_forgot_password"
 
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:text="Forgot your password?"/>
         <Button
             android:onClick="Signup1"
@@ -69,13 +85,15 @@
             style="@style/Widget.AppCompat.ButtonBar"
             android:id="@+id/btn_signup"
 
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:text="Sign up here"/>
 
 
 
 
+
     </LinearLayout>
+    </androidx.cardview.widget.CardView>
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_width="30dp"
